@@ -11,13 +11,14 @@ namespace DesafioProjetoHospedagem.Models
         public Reserva(int diasReservados)
         {
             DiasReservados = diasReservados;
+            Hospedes = new List<Pessoa>();
         }
 
         public void CadastrarHospedes(List<Pessoa> hospedes)
         {
             // TODO: Verificar se a capacidade é maior ou igual ao número de hóspedes sendo recebido
             
-            if (DiasReservados >= hospedes.Count)
+            if (hospedes.Count <= Suite.Capacidade)
             {
                 Hospedes = hospedes;
             }
@@ -25,7 +26,7 @@ namespace DesafioProjetoHospedagem.Models
             {
                 // TODO: Retornar uma exception caso a capacidade seja menor que o número de hóspedes recebido
                 
-                throw new Exception ("Excedeu o limite");
+                throw new Exception ("Excedeu o limite de hospedes");
             }
         }
 
@@ -50,9 +51,9 @@ namespace DesafioProjetoHospedagem.Models
 
             // Regra: Caso os dias reservados forem maior ou igual a 10, conceder um desconto de 10%
             
-            if (DiasReservados > 10)
+            if (DiasReservados >= 10)
             {
-                valor = DiasReservados * 0.1M;
+                valor *= 0.90M;
             }
 
             return valor;
